@@ -21,3 +21,27 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Category {
+  id String @id @default(uuid())
+  name String
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id String @id @default(uuid())
+  name String
+  description String
+  assessment Float
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  inStock Boolean @default(false)
+  value Float
+  stock Int
+  images String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
