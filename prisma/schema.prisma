@@ -17,6 +17,7 @@ model User {
   password  String?
   avatar    String?
   role      Role     @default(USER)
+  favorities Favorities[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -41,6 +42,7 @@ model Product {
   value Float
   stock Int
   images String[]
+  favorities Favorities[]
 
   freeShipping Boolean? @default(false)
   securePurchase Boolean? @default(false)
@@ -49,4 +51,15 @@ model Product {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Favorities {
+  id String @id @default(uuid())
+  userId String
+  productId String
+
+  user User @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
 }
