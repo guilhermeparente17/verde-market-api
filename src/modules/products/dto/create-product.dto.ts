@@ -4,6 +4,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 
@@ -49,4 +50,30 @@ export class CreateProductDto {
     message: 'Cada imagem deve ser uma string.',
   })
   images: string[] = [];
+
+  @ApiProperty({ description: 'Product freeShipping', default: false })
+  @IsOptional()
+  @IsBoolean({
+    message: 'O campo freeShipping deve ser verdadeiro ou falso.',
+  })
+  freeShipping?: boolean = false;
+
+  @ApiProperty({ description: 'Product securePurchase', default: false })
+  @IsOptional()
+  @IsBoolean({
+    message: 'O campo securePurchase deve ser verdadeiro ou falso.',
+  })
+  securePurchase?: boolean = false;
+
+  @ApiProperty({ description: 'Product replacement', default: false })
+  @IsOptional()
+  @IsBoolean({
+    message: 'O campo replacement deve ser verdadeiro ou falso.',
+  })
+  replacement?: boolean = false;
+
+  @ApiProperty({ description: 'Product exchangeDays' })
+  @IsNumber({}, { message: 'O dias de troca deve ser um número.' })
+  @IsNotEmpty({ message: 'O exchangeDays é obrigatório.' })
+  exchangeDays: number;
 }
